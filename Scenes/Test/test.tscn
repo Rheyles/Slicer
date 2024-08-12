@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxsibsjcntuyf"]
+
+[ext_resource type="PackedScene" uid="uid://tt2l7q6sx0h1" path="res://Scenes/player/player.tscn" id="1_30y74"]
+[ext_resource type="PackedScene" uid="uid://75bm12cgbmi1" path="res://Scenes/terrain/terrain.tscn" id="1_gf8t7"]
+[ext_resource type="AudioStream" uid="uid://bluihn4drn077" path="res://Ressources/Musics/Man of Steel   If You Love These People Extended Version (Edit 2).mp3" id="3_0vgoy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xlxgf"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_olse1"]
+a = Vector2(-1251, 635)
+b = Vector2(1173, 637)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vjlyy"]
+a = Vector2(-1173, 631)
+b = Vector2(-1177, 27)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_faevg"]
+a = Vector2(1151, 649)
+b = Vector2(1149, -7)
+
+[node name="test" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(2, 2)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(192, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer2"]
+z_index = -10
+color = Color(0.566747, 0.235541, 0.21738, 1)
+polygon = PackedVector2Array(-1344, -666, 1332, -666, 1343, 703, -1392, 691)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, 110.5)
+scale = Vector2(2, 2)
+color = Color(0.374139, 0.374139, 0.374139, 1)
+polygon = PackedVector2Array(-870, -367, -792, -582, -781, 171, -662, 174, -670, -304, -402, -302, -404, -61, -263, -58, -252, 230, -122, 244, -139, -420, -54, -593, -54, -440, 8, -344, 11, 247, 348, 219, 328, -44, 438, -27, 464, 287, 600, 256, 608, -386, 840, -417, 850, 38, 1058, 63, 1046, 640, -1095, 595, -1070, 4, -874, 7)
+
+[node name="terrain" parent="." instance=ExtResource("1_gf8t7")]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionPolygon2D" parent="terrain" index="1"]
+polygon = PackedVector2Array(-548, 101, -180, 21, -176, 85, 238, 24, 248, 85, 520, 82, 514, -167, 1138, -170, 1145, 627, -1161, 625, -1165, -188, -551, -156)
+
+[node name="terrain2" parent="." instance=ExtResource("1_gf8t7")]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionPolygon2D" parent="terrain2" index="1"]
+polygon = PackedVector2Array(246, -263, 249, 31, -68, -160, -131, -279)
+
+[node name="Player" parent="." instance=ExtResource("1_30y74")]
+z_index = 1
+collision_mask = 7
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_xlxgf")
+
+[node name="MapLimit" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_olse1")
+
+[node name="MapLimit2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_vjlyy")
+
+[node name="MapLimit3" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_faevg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0vgoy")
+autoplay = true
+bus = &"Music"
+
+[editable path="terrain"]
+[editable path="terrain2"]

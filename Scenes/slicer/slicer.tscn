@@ -1,0 +1,223 @@
+[gd_scene load_steps=19 format=3 uid="uid://b5eqrm42fenou"]
+
+[ext_resource type="Script" path="res://Scenes/slicer/slicer.gd" id="1_fty7w"]
+[ext_resource type="AudioStream" uid="uid://ce56k2hgo4836" path="res://Ressources/Sounds/slicer/Sword Scrape D.wav" id="2_ni4yy"]
+[ext_resource type="AudioStream" uid="uid://rxjeso7nh784" path="res://Ressources/Sounds/slicer/Wind Strike 002.wav" id="6_86j41"]
+[ext_resource type="AudioStream" uid="uid://dhb2bm8a2j38p" path="res://Ressources/Sounds/slicer/Thunder Strike 001.wav" id="7_tudka"]
+[ext_resource type="AudioStream" uid="uid://bwh703fi7m6ag" path="res://Ressources/Sounds/slicer/Thunder Strike 002.wav" id="8_m0yru"]
+[ext_resource type="Texture2D" uid="uid://cvpo44bbuowm8" path="res://Ressources/Sprites/Line1.png" id="8_oolad"]
+[ext_resource type="AudioStream" uid="uid://de88x11hr6de4" path="res://Ressources/Sounds/slicer/Thunder Strike 003.wav" id="9_2gh8e"]
+[ext_resource type="Texture2D" uid="uid://ba51nrnmyeh30" path="res://Ressources/Sprites/slicer/slicer.png" id="9_3xrno"]
+[ext_resource type="AudioStream" uid="uid://bdf8oqsxug0jy" path="res://Ressources/Sounds/slicer/Thunder Strike 004.wav" id="10_s1vbh"]
+
+[sub_resource type="Gradient" id="Gradient_r6eq0"]
+offsets = PackedFloat32Array(0, 0.345588, 0.713235, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tkm4q"]
+gradient = SubResource("Gradient_r6eq0")
+
+[sub_resource type="Curve" id="Curve_eiic8"]
+max_value = 3.0
+_data = [Vector2(0, 1.41758), 0.0, 0.0, 0, 0, Vector2(0.439024, 3), 0.0, 0.0, 0, 0, Vector2(1, 1.41758), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_k7inp"]
+curve = SubResource("Curve_eiic8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o0bmw"]
+lifetime_randomness = 0.34
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -20, 0)
+emission_shape = 1
+emission_sphere_radius = 13.0
+inherit_velocity_ratio = 0.573
+direction = Vector3(0, 1, 0)
+spread = 13.125
+initial_velocity_min = 72.92
+initial_velocity_max = 281.25
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 14.58
+scale_min = 0.6
+scale_max = 0.9
+scale_over_velocity_curve = SubResource("CurveTexture_k7inp")
+color_ramp = SubResource("GradientTexture1D_tkm4q")
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_nb5ob"]
+points = PackedVector2Array(-700, 0, 0, -6, 700, 0, 0, 6)
+
+[sub_resource type="Animation" id="Animation_5xyvy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mdtkv"]
+resource_name = "slice"
+length = 10.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 10),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_slice"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Polygon2D:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1, 1.5),
+"transitions": PackedFloat32Array(2.21914, 8.28211, 0.189464, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.580392), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_shake_screen"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GPUParticles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer2D3")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bjswn"]
+_data = {
+"RESET": SubResource("Animation_5xyvy"),
+"slice": SubResource("Animation_mdtkv")
+}
+
+[node name="Slicer" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_fty7w")
+slice_sounds = Array[Resource]([ExtResource("2_ni4yy"), ExtResource("6_86j41")])
+hit_sounds = Array[Resource]([ExtResource("7_tudka"), ExtResource("8_m0yru"), ExtResource("9_2gh8e"), ExtResource("10_s1vbh")])
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.478431)
+rotation = 1.5708
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_o0bmw")
+texture = ExtResource("8_oolad")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.68
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-800, 0, 0, -20, 800, 0, 0, 20)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+shape = SubResource("ConvexPolygonShape2D_nb5ob")
+exclude_parent = false
+target_position = Vector2(0, 0)
+collision_mask = 6
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = 500
+antialiased = true
+texture = ExtResource("9_3xrno")
+texture_offset = Vector2(960, 100)
+polygon = PackedVector2Array(-700, 0, -3, -67, 700, 0, 2, 45)
+vertex_colors = PackedColorArray(1, 1, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bjswn")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+pitch_scale = 1.32
+bus = &"Sounds"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+volume_db = 6.762
+bus = &"Sounds"
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+volume_db = 6.762
+bus = &"Sounds"

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://yotxsp1764hy"
+path="res://.godot/imported/Rocky Missile 002.wav-e448c62bc3ab1ca5a95a597c199768cb.sample"
+
+[deps]
+
+source_file="res://Ressources/Sounds/slicer/Rocky Missile 002.wav"
+dest_files=["res://.godot/imported/Rocky Missile 002.wav-e448c62bc3ab1ca5a95a597c199768cb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

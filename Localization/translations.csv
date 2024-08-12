@@ -1,0 +1,7 @@
+id,fr,en
+TEST,test,test
+UI_PRESS_LABEL,"- Appuyez sur la cassette pour commencer -","- Press on the tape to start -"
+POPUP_LETS_GO,"C'est parti !","Let's go!"
+POPUP_ALMOST_THERE,Tu y es presque !,You're almost correct !
+POPUP_WIN,"Bravo, tu as réussi !","Congratulations, you did it!"
+POPUP_NOTHING_TO_DO,"Il n'y a plus rien à faire ici à part profiter et se détendre... ^^","There is nothing left to do here but enjoy and relax... ^^"

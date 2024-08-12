@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://tt2l7q6sx0h1"]
+
+[ext_resource type="Script" path="res://Scenes/player/player.gd" id="1_reqnk"]
+[ext_resource type="Shader" path="res://Scenes/player/blink.gdshader" id="2_4l77d"]
+[ext_resource type="Script" path="res://Scenes/player/camera.gd" id="2_i4006"]
+[ext_resource type="Texture2D" uid="uid://bsi7xbphlgujr" path="res://Ressources/Sprites/player/player.png" id="2_mrud4"]
+[ext_resource type="Texture2D" uid="uid://7qupujgfjibn" path="res://Ressources/Sprites/Placeholders/PlaceHolder_Circle.png" id="2_ycqw3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iyoae"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2ucp"]
+radius = 15.0
+height = 60.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eufq6"]
+shader = ExtResource("2_4l77d")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="Animation" id="Animation_ogo0w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_a7oky"]
+resource_name = "damage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_74c6y"]
+_data = {
+"RESET": SubResource("Animation_ogo0w"),
+"damage": SubResource("Animation_a7oky")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+floor_max_angle = 2.32129
+script = ExtResource("1_reqnk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_i4006")
+noise = SubResource("FastNoiseLite_iyoae")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_q2ucp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_eufq6")
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("2_mrud4")
+region_rect = Rect2(0, 0, 1080, 600)
+
+[node name="Slicer" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Slicer"]
+modulate = Color(0.678331, 0.00441926, 3.85046e-07, 1)
+position = Vector2(53, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ycqw3")
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ClickTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="SliceCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_74c6y")
+}

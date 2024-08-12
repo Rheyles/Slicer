@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bluihn4drn077"
+path="res://.godot/imported/Man of Steel   If You Love These People Extended Version (Edit 2).mp3-77f9914a843d19d187860777ffa883c4.mp3str"
+
+[deps]
+
+source_file="res://Ressources/Musics/Man of Steel   If You Love These People Extended Version (Edit 2).mp3"
+dest_files=["res://.godot/imported/Man of Steel   If You Love These People Extended Version (Edit 2).mp3-77f9914a843d19d187860777ffa883c4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

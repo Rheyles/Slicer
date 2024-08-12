@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d21tlnn1f7pl2"
+path="res://.godot/imported/Greatsword Scrape E.wav-9c02178e7a5bb8703204fb4702daa17a.sample"
+
+[deps]
+
+source_file="res://Ressources/Sounds/slicer/Greatsword Scrape E.wav"
+dest_files=["res://.godot/imported/Greatsword Scrape E.wav-9c02178e7a5bb8703204fb4702daa17a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
