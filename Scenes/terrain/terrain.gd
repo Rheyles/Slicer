@@ -24,6 +24,7 @@ func _ready():
 func _physics_process(_delta):
 	if not rebased:
 		_rebase_self()
+		_ajust_visual_shape($Polygon2D.texture, $Polygon2D.texture_offset, $Polygon2D.uv)
 
 func _rebase_self():
 	rebased = true
@@ -40,16 +41,21 @@ func _rebase_self():
 	##for i in range(collision_poly.polygon.size()):
 		##new_poly.append(trsf * collision_poly.polygon[i])
 	#collision_poly.polygon = PackedVector2Array(new_poly.map(func(vec): return rebased_trsf * vec))
-	
-	_ajust_visual_shape()
 
 
-func _ajust_visual_shape():
+func _ajust_visual_shape(texture = null, offset = Vector2.ZERO, _uv=[]):
 	$Polygon2D.polygon = collision_poly.polygon
+	$LightOccluder2D.occluder.polygon = collision_poly.polygon
+	$Polygon2D.texture_offset = offset
+	#$Polygon2D.uv = uv
+	if texture :
+		$Polygon2D.texture = texture
 
 func clip(clipping_origin : Vector2, clipping_shape : PackedVector2Array) -> void:
 	rebased_poly = GAME.rebase_shape(collision_poly.polygon, global_position, global_rotation)
-	var clipped_polygons = Geometry2D.clip_polygons(rebased_poly, clipping_shape)
+	rebased_poly = collision_poly.polygon
+	clipping_shape = GAME.rebase_shape(clipping_shape, -global_position, -global_rotation)
+	var clipped_polygons = Terrain.clipPolygons(rebased_poly, clipping_shape)
 	#print("Origin Polygon : ", rebased_poly)
 	#print("Clipped Polygons : ", clipped_polygons)
 	
@@ -99,7 +105,7 @@ func _threaded_slice(clipped_poly : PackedVector2Array, clipping_origin : Vector
 	
 	## On parcourt les nouveaux points de chaque polygone pour identifier le plus proche de l'origine
 	var clipped_area = Terrain.compute_area(clipped_poly)
-	if clipped_area > 500:
+	if clipped_area > 1500:
 		for point in clipped_poly:
 			var dist = point.distance_squared_to(clipping_origin)
 			if dist < closest_dist:
@@ -137,15 +143,22 @@ func _threaded_slice(clipped_poly : PackedVector2Array, clipping_origin : Vector
 	return polygons
 
 
-func create_new_poly(poly, clipping_origin)->void:
+func create_new_poly(poly, _clipping_origin)->void:
 	var new_terrain = GAME.terrain_scene.instantiate()
 	get_parent().add_child(new_terrain)
 	new_terrain.collision_poly.polygon = poly
+	#new_terrain.collision_poly.polygon = GAME.rebase_shape(poly, -global_position, -global_rotation)
+	new_terrain.global_position = global_position
+	new_terrain.global_rotation = global_rotation
+	var _new_offset = GAME.rebase_shape([$Polygon2D.texture_offset], -global_position, -global_rotation)
 	new_terrain._rebase_self()
+	new_terrain._ajust_visual_shape($Polygon2D.texture,
+									$Polygon2D.texture_offset,# - new_terrain.center_of_mass + center_of_mass, 
+									$Polygon2D.uv)
 	
-	new_terrain.apply_impulse(sign(Terrain.compute_area(poly) - 1500)*
-							  (new_terrain.global_position - clipping_origin) * 0.4) 
-							  #,closest_point)
+	#new_terrain.apply_impulse(sign(Terrain.compute_area(poly) - 1500)*
+							  #(new_terrain.global_position - clipping_origin) * 0.4) 
+							  ##,closest_point)
 
 
 static func compute_area(poly: PackedVector2Array)-> float:

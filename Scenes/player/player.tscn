@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://tt2l7q6sx0h1"]
+[gd_scene load_steps=13 format=3 uid="uid://tt2l7q6sx0h1"]
 
 [ext_resource type="Script" path="res://Scenes/player/player.gd" id="1_reqnk"]
 [ext_resource type="Shader" path="res://Scenes/player/blink.gdshader" id="2_4l77d"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://7qupujgfjibn" path="res://Ressources/Sprites/Placeholders/PlaceHolder_Circle.png" id="2_ycqw3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iyoae"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3ony2"]
+closed = false
+polygon = PackedVector2Array(2, 30, 0, -30, -1, 30)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2ucp"]
 radius = 15.0
@@ -66,6 +70,9 @@ process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_i4006")
 noise = SubResource("FastNoiseLite_iyoae")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_3ony2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_q2ucp")

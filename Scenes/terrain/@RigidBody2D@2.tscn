@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccngvvfpq8o7u"]
+
+[ext_resource type="Script" path="res://Scenes/terrain/terrain.gd" id="1_4y3l4"]
+[ext_resource type="Texture2D" uid="uid://b3yoliapk3bl0" path="res://Ressources/Sprites/Placeholders/PlaceHolder_Circle - Copie.png" id="2_5bos5"]
+[ext_resource type="Texture2D" uid="uid://eoivoo3yqfid" path="res://Ressources/Sprites/Placeholders/SparkleSprite.png" id="3_iqgnu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6wl3q"]
+friction = 0.88
+bounce = 0.11
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yxsy7"]
+resource_local_to_scene = true
+polygon = PackedVector2Array(21.3716, 17.0643, 20.7717, 17.0643, 14.2717, 30.0643, -0.328339, 40.0643, -21.3283, 40.0643, -34.6284, 30.0643, -42.6284, 15.7643, -42.3863, 12.0122, 21.3717, 10.5966)
+
+[node name="_RigidBody2D_2" type="RigidBody2D"]
+position = Vector2(467.037, 596.411)
+rotation = -0.00352354
+collision_layer = 3
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_6wl3q")
+gravity_scale = 0.1
+center_of_mass_mode = 1
+center_of_mass = Vector2(-10.1057, 23.6612)
+sleeping = true
+continuous_cd = 1
+linear_velocity = Vector2(0.000239028, -0.000144417)
+angular_velocity = 1.61042e-05
+script = ExtResource("1_4y3l4")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+antialiased = true
+texture = ExtResource("2_5bos5")
+texture_offset = Vector2(32, 32)
+polygon = PackedVector2Array(21.3716, 17.0643, 20.7717, 17.0643, 14.2717, 30.0643, -0.328339, 40.0643, -21.3283, 40.0643, -34.6284, 30.0643, -42.6284, 15.7643, -42.3863, 12.0122, 21.3717, 10.5966)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(21.3716, 17.0643, 20.7717, 17.0643, 14.2717, 30.0643, -0.328339, 40.0643, -21.3283, 40.0643, -34.6284, 30.0643, -42.6284, 15.7643, -42.3863, 12.0122, 21.3717, 10.5966)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.172549, 0.317647, 0.972549, 1)
+texture = ExtResource("3_iqgnu")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_yxsy7")
+sdf_collision = false

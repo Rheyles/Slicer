@@ -1,8 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxsibsjcntuyf"]
+[gd_scene load_steps=10 format=3 uid="uid://bxsibsjcntuyf"]
 
 [ext_resource type="PackedScene" uid="uid://tt2l7q6sx0h1" path="res://Scenes/player/player.tscn" id="1_30y74"]
 [ext_resource type="PackedScene" uid="uid://75bm12cgbmi1" path="res://Scenes/terrain/terrain.tscn" id="1_gf8t7"]
 [ext_resource type="AudioStream" uid="uid://bluihn4drn077" path="res://Ressources/Musics/Man of Steel   If You Love These People Extended Version (Edit 2).mp3" id="3_0vgoy"]
+[ext_resource type="PackedScene" uid="uid://jye0ukigc082" path="res://Scenes/terrain/terrain_sprite_test.tscn" id="4_1aqnj"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lke4v"]
+resource_local_to_scene = true
+cull_mode = 1
+polygon = PackedVector2Array(0, 0, 10, 0, 0, 10)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xlxgf"]
 
@@ -21,6 +27,7 @@ b = Vector2(1149, -7)
 [node name="test" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 scale = Vector2(2, 2)
@@ -42,23 +49,40 @@ scale = Vector2(2, 2)
 color = Color(0.374139, 0.374139, 0.374139, 1)
 polygon = PackedVector2Array(-870, -367, -792, -582, -781, 171, -662, 174, -670, -304, -402, -302, -404, -61, -263, -58, -252, 230, -122, 244, -139, -420, -54, -593, -54, -440, 8, -344, 11, 247, 348, 219, 328, -44, 438, -27, 464, 287, 600, 256, 608, -386, 840, -417, 850, 38, 1058, 63, 1046, 640, -1095, 595, -1070, 4, -874, 7)
 
+[node name="Background" type="Polygon2D" parent="."]
+color = Color(0.266928, 9.29525e-07, 0.0242728, 1)
+polygon = PackedVector2Array(-4492, -3895, 5472, -4066, 5219, 3922, -4573, 3442)
+metadata/_edit_lock_ = true
+
 [node name="terrain" parent="." instance=ExtResource("1_gf8t7")]
+position = Vector2(2411, 928)
 collision_layer = 4
 collision_mask = 7
+
+[node name="Polygon2D" parent="terrain" index="0"]
+metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" parent="terrain" index="1"]
 polygon = PackedVector2Array(-548, 101, -180, 21, -176, 85, 238, 24, 248, 85, 520, 82, 514, -167, 1138, -170, 1145, 627, -1161, 625, -1165, -188, -551, -156)
+metadata/_edit_lock_ = true
 
-[node name="terrain2" parent="." instance=ExtResource("1_gf8t7")]
-collision_layer = 4
-collision_mask = 7
+[node name="Sprite2D" parent="terrain" index="2"]
+metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D" parent="terrain2" index="1"]
-polygon = PackedVector2Array(246, -263, 249, 31, -68, -160, -131, -279)
+[node name="LightOccluder2D" parent="terrain" index="3"]
+occluder = SubResource("OccluderPolygon2D_lke4v")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_30y74")]
 z_index = 1
 collision_mask = 7
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+rotation = 0.69115
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.203922)
+height = 0.8
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_mask = 7
@@ -78,5 +102,7 @@ stream = ExtResource("3_0vgoy")
 autoplay = true
 bus = &"Music"
 
+[node name="terrain_sprite_test" parent="." instance=ExtResource("4_1aqnj")]
+position = Vector2(466, -567)
+
 [editable path="terrain"]
-[editable path="terrain2"]

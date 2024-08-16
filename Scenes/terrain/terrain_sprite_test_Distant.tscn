@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://canxpg1ryujo3"]
+
+[ext_resource type="Script" path="res://Scenes/terrain/terrain.gd" id="1_dagyx"]
+[ext_resource type="Texture2D" uid="uid://eoivoo3yqfid" path="res://Ressources/Sprites/Placeholders/SparkleSprite.png" id="2_8qnoj"]
+[ext_resource type="Texture2D" uid="uid://b3yoliapk3bl0" path="res://Ressources/Sprites/Placeholders/PlaceHolder_Circle - Copie.png" id="3_iyqps"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6wl3q"]
+friction = 0.88
+bounce = 0.11
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xdl0y"]
+polygon = PackedVector2Array(16, -29.7, 28, -19, 32, -8.5, 32, 9, 31.4, 9, 24.9, 22, 10.3, 32, -10.7, 32, -24, 22, -32, 7.7, -30.6, -14, -21.1, -26, -11.6, -31, 3.6, -32)
+
+[node name="terrain_sprite_test2" type="RigidBody2D"]
+position = Vector2(466.84, 604.233)
+rotation = -0.0174728
+collision_layer = 3
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_6wl3q")
+gravity_scale = 0.1
+center_of_mass_mode = 1
+center_of_mass = Vector2(0.201229, -0.1435)
+sleeping = true
+continuous_cd = 1
+linear_velocity = Vector2(1.7381, 0.554749)
+angular_velocity = 0.0537526
+script = ExtResource("1_dagyx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.172549, 0.317647, 0.972549, 1)
+texture = ExtResource("2_8qnoj")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+modulate = Color(0.309804, 1, 0.298039, 1)
+texture = ExtResource("3_iyqps")
+texture_offset = Vector2(32, 32)
+polygon = PackedVector2Array(16, -29.7, 28, -19, 32, -8.5, 32, 9, 31.4, 9, 24.9, 22, 10.3, 32, -10.7, 32, -24, 22, -32, 7.7, -30.6, -14, -21.1, -26, -11.6, -31, 3.6, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(16, -29.7, 28, -19, 32, -8.5, 32, 9, 31.4, 9, 24.9, 22, 10.3, 32, -10.7, 32, -24, 22, -32, 7.7, -30.6, -14, -21.1, -26, -11.6, -31, 3.6, -32)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource("OccluderPolygon2D_xdl0y")

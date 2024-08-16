@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://75bm12cgbmi1"]
+[gd_scene load_steps=5 format=3 uid="uid://75bm12cgbmi1"]
 
 [ext_resource type="Script" path="res://Scenes/terrain/terrain.gd" id="1_pwoep"]
 [ext_resource type="Texture2D" uid="uid://eoivoo3yqfid" path="res://Ressources/Sprites/Placeholders/SparkleSprite.png" id="2_6h0gf"]
@@ -7,17 +7,20 @@
 friction = 0.88
 bounce = 0.11
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2vqlp"]
+resource_local_to_scene = true
+polygon = PackedVector2Array(3, -29, 100, 0, -48, 12)
+
 [node name="terrain" type="RigidBody2D"]
 collision_layer = 3
 mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_6wl3q")
-gravity_scale = 0.05
+gravity_scale = 0.1
 center_of_mass_mode = 1
 continuous_cd = 1
 script = ExtResource("1_pwoep")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 0, 0, 1)
 antialiased = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -26,3 +29,7 @@ antialiased = true
 visible = false
 modulate = Color(0.172549, 0.317647, 0.972549, 1)
 texture = ExtResource("2_6h0gf")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_2vqlp")
+sdf_collision = false
